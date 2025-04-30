@@ -14,3 +14,6 @@ logs/
 # OS-specific
 .DS_Store
 Thumbs.db
+
+# Firebase service account credentials
+serviceAccountKey.json
