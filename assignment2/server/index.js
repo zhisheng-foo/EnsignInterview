@@ -14,6 +14,7 @@ app.get('/', (req, res) => {
 
 const db = require('./firebase');
 
+//Testing purposes
 app.post('/firestore-test', async (req, res) => {
   try {
     const docData = {
