@@ -4,6 +4,7 @@ import './App.css';
 import Login from './Login/login';
 import Signup from './SignUp/signup'; 
 import ViewAllProducts from './ViewAllProducts/viewAllProducts';
+import ProtectedRoute from './Components/protectedRoute';
 
 function App() {
   return (
@@ -12,7 +13,14 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/products" element={<ViewAllProducts />} />
+          <Route
+            path="/products"
+            element={
+              <ProtectedRoute>
+                <ViewAllProducts />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </div>
     </Router>

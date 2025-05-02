@@ -33,9 +33,11 @@ const Login = () => {
 
       if (response.ok) {
         toast.success('Login successful!');
+        localStorage.setItem('isAuthenticated', 'true');
         setTimeout(() => {
           navigate('/products'); 
         }, 2000);
+        
       } else {
         toast.error("Incorrect email or password");
       }

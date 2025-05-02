@@ -61,38 +61,38 @@ const AccountController = {
     }
   },
 
-  loginAccount: async (req, res) => {
-    try {
-      const { email, password } = req.body;
-  
-      if (!email || !password) {
-        return res.status(400).json({ error: 'Email and password are required.' });
+    loginAccount: async (req, res) => {
+      try {
+        const { email, password } = req.body;
+    
+        if (!email || !password) {
+          return res.status(400).json({ error: 'Email and password are required.' });
+        }
+    
+        const snapshot = await db.collection('accounts').where('email', '==', email).get();
+    
+        if (snapshot.empty) {
+          return res.status(404).json({ error: 'Account not found.' });
+        }
+    
+        const userDoc = snapshot.docs[0];
+        const userData = userDoc.data();
+    
+        const isMatch = await bcrypt.compare(password, userData.password);
+        if (!isMatch) {
+          return res.status(401).json({ error: 'Invalid password.' });
+        }
+    
+        return res.status(200).json({
+          message: 'Login successful',
+          accountId: userData.accountId,
+          username: userData.username,
+          email: userData.email
+        });
+      } catch (err) {
+        return res.status(500).json({ error: 'Server error', details: err.message });
       }
-  
-      const snapshot = await db.collection('accounts').where('email', '==', email).get();
-  
-      if (snapshot.empty) {
-        return res.status(404).json({ error: 'Account not found.' });
-      }
-  
-      const userDoc = snapshot.docs[0];
-      const userData = userDoc.data();
-  
-      const isMatch = await bcrypt.compare(password, userData.password);
-      if (!isMatch) {
-        return res.status(401).json({ error: 'Invalid password.' });
-      }
-  
-      return res.status(200).json({
-        message: 'Login successful',
-        accountId: userData.accountId,
-        username: userData.username,
-        email: userData.email
-      });
-    } catch (err) {
-      return res.status(500).json({ error: 'Server error', details: err.message });
-    }
-  },
+    },
   
   
 
