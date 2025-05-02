@@ -79,7 +79,10 @@ const ProductLandingPage = () => {
 
                     <div className="flex items-center justify-between mt-auto pt-6">
                       <p className="text-lg font-semibold text-black">${product.price}</p>
-                      <FaEye className="text-xl text-gray-600 hover:text-black cursor-pointer" />
+                      <FaEye
+                        className="text-xl text-gray-600 hover:text-black cursor-pointer"
+                        onClick={() => navigate(`/products/${product.id}`)}
+                      />
                     </div>
                   </div>
                 </div>

@@ -4,6 +4,7 @@ import './App.css';
 import Login from './Login/login';
 import Signup from './SignUp/signup'; 
 import ViewAllProducts from './ViewAllProducts/viewAllProducts';
+import ViewSelectedProduct from './ViewSelectedProduct/viewSelectedProduct';
 import ProtectedRoute from './Components/protectedRoute';
 
 function App() {
@@ -18,6 +19,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <ViewAllProducts />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/products/:id"
+            element={
+              <ProtectedRoute>
+                <ViewSelectedProduct />
               </ProtectedRoute>
             }
           />
