@@ -28,7 +28,7 @@ const Signup = () => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
     if (name === "password") {
         const strength = getPasswordStrength(value);
-        setPasswordStrength(strength); // <-- update here
+        setPasswordStrength(strength); 
       }
   };
 

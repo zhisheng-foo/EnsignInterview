@@ -12,13 +12,11 @@ const CartController = {
       const cartDoc = await cartRef.get();
 
       if (!cartDoc.exists) {
-        // Create new cart
         await cartRef.set({
           accountId,
           items: [{ productId, quantity: 1, addedAt: new Date().toISOString() }]
         });
       } else {
-        // Update existing cart
         const cartData = cartDoc.data();
         const existingItem = cartData.items.find(item => item.productId === productId);
 
