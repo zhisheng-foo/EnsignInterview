@@ -5,13 +5,14 @@ import Login from './Login/login';
 import Signup from './SignUp/signup'; 
 import ViewAllProducts from './ViewAllProducts/viewAllProducts';
 import ViewSelectedProduct from './ViewSelectedProduct/viewSelectedProduct';
+import ShoppingCart from './ShoppingCart/shoppingcart';
 import ProtectedRoute from './Components/protectedRoute';
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <Routes>
+      <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route
@@ -30,7 +31,15 @@ function App() {
               </ProtectedRoute>
             }
           />
-        </Routes>
+          <Route
+            path="/cart"
+            element={
+              <ProtectedRoute>
+                <ShoppingCart />
+              </ProtectedRoute>
+            }
+          />
+      </Routes>
       </div>
     </Router>
   );

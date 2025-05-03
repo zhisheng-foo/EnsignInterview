@@ -2,7 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import accountRoutes from './routes/accountRoutes.js';
-import productRoutes from './routes/productRoutes.js'
+import productRoutes from './routes/productRoutes.js';
+import cartRoutes from './routes/cartRoutes.js';
 import { db } from './firebase.js';
 
 dotenv.config();
@@ -34,8 +35,9 @@ app.post('/firestore-test', async (req, res) => {
   }
 });
 
-app.use('/api/accounts', accountRoutes);
-app.use('/api/products', productRoutes); 
+app.use('/accounts', accountRoutes);
+app.use('/products', productRoutes);
+app.use('/cart', cartRoutes); 
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

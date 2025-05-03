@@ -1,7 +1,16 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaShoppingCart, FaSignOutAlt } from 'react-icons/fa';
 
-const Header = ({ categories, searchQuery, setSearchQuery, onLogoutClick }) => {
+const Header = ({
+  categories,
+  searchQuery,
+  setSearchQuery,
+  onLogoutClick,
+  cartItemCount = 0 
+}) => {
+  const navigate = useNavigate();
+
   return (
     <header className="bg-white shadow p-4 flex items-center justify-between sticky top-0 z-10">
       <div className="flex items-center text-2xl font-semibold text-gray-900 mr-6">
@@ -24,7 +33,15 @@ const Header = ({ categories, searchQuery, setSearchQuery, onLogoutClick }) => {
         </select>
       </div>
 
-      <FaShoppingCart className="text-2xl text-gray-700 hover:text-gray-900 cursor-pointer mr-5" />
+      <div className="relative mr-5 cursor-pointer" onClick={() => navigate('/cart')}>
+        <FaShoppingCart className="text-2xl text-gray-700 hover:text-gray-900" />
+        {cartItemCount > 0 && (
+          <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+            {cartItemCount}
+          </span>
+        )}
+      </div>
+
       <FaSignOutAlt
         className="text-xl text-gray-600 hover:text-black cursor-pointer"
         onClick={onLogoutClick}

@@ -47,9 +47,9 @@ const AccountController = {
         from: '"Shoplify" <no-reply@shoplify.com>',
         to: email,
         subject: 'Welcome to Shoplify!',
-        html: ` <p>Welcome aboard, <strong>{{username}}</strong>!</p>
+        html: ` <p>Welcome aboard, </p>
                 <p>We're excited to have you as part of the Shoplify family. Your account has been successfully created.</p>
-                <p>Feel free to explore our curated collections, exclusive deals, and personalized recommendations — all tailored just for you.</p>
+                <p>Feel free to explore our curated collections — all tailored just for you.</p>
                 <p>If you ever need help, we're just one message away!</p>
                 <p>Happy shopping and see you inside!</p>
                 <p style="margin-top: 1rem;">Warm regards,<br><strong>The Shoplify Team</strong></p>`,

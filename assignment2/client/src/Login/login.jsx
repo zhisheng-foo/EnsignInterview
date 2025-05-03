@@ -23,7 +23,7 @@ const Login = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/accounts/login', {
+      const response = await fetch('http://localhost:5000/accounts/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
@@ -34,6 +34,7 @@ const Login = () => {
       if (response.ok) {
         toast.success('Login successful!');
         localStorage.setItem('isAuthenticated', 'true');
+        localStorage.setItem('accountId', result.accountId);
         setTimeout(() => {
           navigate('/products'); 
         }, 2000);

@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import Footer from '../ViewAllProducts/viewAllProductsFooter';
-import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const ViewSelectedProduct = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState(null);
   const navigate = useNavigate();
+  const [product, setProduct] = useState(null);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/products/${id}`);
+        const res = await fetch(`http://localhost:5000/products/${id}`);
         const data = await res.json();
         setProduct(data);
       } catch (err) {
@@ -21,6 +22,26 @@ const ViewSelectedProduct = () => {
     };
     fetchProduct();
   }, [id]);
+
+  const handleAddToCart = async () => {
+    const accountId = localStorage.getItem('accountId');
+    if (!accountId) {
+      toast.error('You must be logged in to add to cart');
+      return;
+    }
+    try {
+      const res = await fetch('http://localhost:5000/cart/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ accountId, productId: product.id })
+      });
+      if (!res.ok) throw new Error('Failed to add to cart');
+      toast.success(`Successfully added to cart!`);
+    } catch (err) {
+      toast.error('Error adding to cart');
+      console.error(err);
+    }
+  };
 
   if (!product) {
     return <div className="text-center py-8">Loading...</div>;
@@ -43,7 +64,10 @@ const ViewSelectedProduct = () => {
             </div>
             <div className="flex -mx-2">
               <div className="w-full px-2">
-                <button className="w-full bg-gray-900 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800">
+                <button
+                  className="w-full bg-gray-900 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800"
+                  onClick={handleAddToCart}
+                >
                   Add to Cart
                 </button>
               </div>
@@ -129,17 +153,19 @@ const ViewSelectedProduct = () => {
                 ))}
               </div>
             </motion.div>
+
             <div className="mt-auto px-2 pt-4">
-                <button
-                    className="w-full bg-white text-black py-2 px-4 rounded-full font-bold border border-gray-400 hover:bg-gray-200 transition"
-                    onClick={() => navigate('/products')}
-                >
-                    Back Home
-                </button>
+              <button
+                className="w-full bg-white text-black py-2 px-4 rounded-full font-bold border border-gray-300 hover:bg-gray-200 transition"
+                onClick={() => navigate('/products')}
+              >
+                Back Home
+              </button>
             </div>
           </div>
         </div>
-        <Footer/>
+        <ToastContainer/>
+        <Footer />
       </div>
     </div>
   );

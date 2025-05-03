@@ -8,15 +8,18 @@ import { FaEye } from 'react-icons/fa';
 const ProductLandingPage = () => {
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [cartItems, setCartItems] = useState([]);
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
-  const navigate = useNavigate();
+  
   const itemsPerPage = 3;
+  const accountId = localStorage.getItem('accountId');
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/products');
+        const res = await fetch('http://localhost:5000/products');
         const data = await res.json();
         setProducts(data);
         setCurrentPage(1);
@@ -26,6 +29,20 @@ const ProductLandingPage = () => {
     };
     fetchProducts();
   }, [searchQuery]);
+
+  useEffect(() => {
+    const fetchCart = async () => {
+      if (!accountId) return;
+      try {
+        const res = await fetch(`http://localhost:5000/cart/${accountId}`);
+        const data = await res.json();
+        setCartItems(data.items || []);
+      } catch (err) {
+        console.error('Failed to fetch cart items:', err);
+      }
+    };
+    fetchCart();
+  }, []);
 
   const filteredProducts = products.filter(product =>
     searchQuery ? product.category.toLowerCase() === searchQuery.toLowerCase() : true
@@ -47,6 +64,7 @@ const ProductLandingPage = () => {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         onLogoutClick={() => setShowLogoutModal(true)}
+        cartItemCount={cartItems.reduce((sum, item) => sum + item.quantity, 0)}
       />
 
       <div className="bg-white rounded-2xl shadow-lg mx-auto w-full max-w-screen-2xl mt-6 h-[83vh]">
@@ -97,6 +115,7 @@ const ProductLandingPage = () => {
               onConfirm={() => {
                 setShowLogoutModal(false);
                 localStorage.removeItem('isAuthenticated');
+                localStorage.removeItem('accountId');
                 navigate('/', { replace: true });
               }}
               onCancel={() => setShowLogoutModal(false)}
