@@ -1,4 +1,4 @@
-# Senior Engineer - Full Stack Web
+
 
 ## Technical Assignment
 
@@ -9,31 +9,75 @@ Make sure to document your **technical decisions and assumptions** you have made
 - You are allowed to use as many assumptions as you like, but don't forget to explain it.
   Please submit the pre-assessment and email to cedric_loy@ensigninfosecurity.com within 5 calendar days.
 
-### Assignment 1
+# Assignment 1
 
 Implement given design (`design.png`) in HTML and CSS.
 
-Try to come up with your own solution and do not use any CSS framework. The content can be hardcoded and you can use any font and images.
+The attached is my attempt on Assignment 1
+![image](https://github.com/user-attachments/assets/6359007d-de3d-4eb4-8a99-c898d1716ef3)
 
-### Assignment 2
+# Assignment 2
 
-(`Create a shopping cart`)
+## Tech Stack
+### Frontend
+- **React.js** 
+- **Tailwind CSS + DaisyUI** 
 
-Shopping Cart Requirements
+### Backend
+- **Node.js + Express.js** - The framework supports RESTful APIs and routing logic. Additionally I would like to incorporate node mailer into my work. Hence, its a suitable framework.
 
-- A ​main page​ that show multiple products
-- When product page is clicked, it will go to a separate product ​detail page​
-- Product ​detail page​ will have add to cart
-- When "​Add to cart button​" is clicked, it will update the cart icon to have number of the product in the cart
-- A ​cart page​ will list the products which are added to the cart
-- Cart page will calculate the total amount needed to be paid
-- Cart will allow the change of quantity and removal of products
-- Please use ReactJs for this assignment
-- Please use https://fakestoreapi.com for retrieval of products
+### Database
+- **Firebase (Cloud Firestore)** – The reason why I chose this database is because it is easy to set up and it is quite scalable in nature
 
-Bonus
+### Assumptions
+- The implementation of Payment API is not needed
 
-- Write meaningful test cases only on cart page using jest and react-testing-library.
-- Persist data of shopping cart even when browser is closed and reopen.
-- Beautify the UI using tailwindcss framework
-- Surprise Us :)
+##  To access the project
+
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/shoplify.git
+cd assignment2
+```
+### 2. Put in the serviceAccountKey.json into the server folder
+
+This key is to allow access to the firebase database so that user can store data in the database. This key will be emailed to you separately.
+
+### 3. Start the backend server
+```bash
+cd server
+npm i
+npm start 
+```  
+### 3. Start the frontend
+```bash
+cd  client
+npm i
+npm start
+```
+
+### Some examples 
+#### Login Page
+
+<img width="1277" alt="image" src="https://github.com/user-attachments/assets/c2fd8324-437f-49c2-9724-c315d010ab5c" />
+
+#### Product Landing Page
+
+<img width="1277" alt="image" src="https://github.com/user-attachments/assets/2d550b14-e7f9-4b8e-baf4-8a433575706b" />
+
+#### View Selected Product Page
+
+<img width="1279" alt="image" src="https://github.com/user-attachments/assets/dd9fb7ef-22a9-48f9-b839-fbf2467a5d03" />
+
+#### Shopping Cart Page
+
+![image](https://github.com/user-attachments/assets/b992be26-90d7-462d-97d7-5fc54a55483b)
+
+### Testing
+Testing is done using Postman
+
+
+
+
