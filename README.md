@@ -27,7 +27,7 @@ The attached is my attempt on Assignment 1
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/shoplify.git
+git clone https://github.com/zhisheng-foo/EnsignInterview.git
 cd assignment2
 ```
 ### 2. Put in the serviceAccountKey.json into the server folder
